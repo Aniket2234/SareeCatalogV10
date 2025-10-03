@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(36, 75%, 92%);
+  --foreground: hsl(25, 50%, 30%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(25, 50%, 30%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(25, 50%, 30%);
+  --primary: hsl(36, 75%, 92%);
+  --primary-foreground: hsl(25, 50%, 30%);
+  --secondary: hsl(36, 75%, 92%);
+  --secondary-foreground: hsl(25, 50%, 30%);
+  --muted: hsl(36, 75%, 95%);
+  --muted-foreground: hsl(25, 40%, 45%);
+  --accent: hsl(36, 70%, 88%);
+  --accent-foreground: hsl(25, 50%, 30%);
+  --destructive: hsl(0, 70%, 50%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(36, 65%, 85%);
+  --input: hsl(0, 0%, 100%);
+  --ring: hsl(36, 75%, 92%);
+  --chart-1: hsl(36, 75%, 92%);
+  --chart-2: hsl(36, 70%, 88%);
+  --chart-3: hsl(36, 65%, 85%);
+  --chart-4: hsl(36, 60%, 80%);
+  --chart-5: hsl(36, 55%, 75%);
+  --sidebar: hsl(0, 0%, 100%);
+  --sidebar-foreground: hsl(25, 50%, 30%);
+  --sidebar-primary: hsl(36, 75%, 92%);
+  --sidebar-primary-foreground: hsl(25, 50%, 30%);
+  --sidebar-accent: hsl(36, 75%, 95%);
+  --sidebar-accent-foreground: hsl(25, 50%, 30%);
+  --sidebar-border: hsl(36, 65%, 85%);
+  --sidebar-ring: hsl(36, 75%, 92%);
+  --font-sans: 'Montserrat', 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-mono: 'Menlo', monospace;
+  --radius: 0.5rem;
+  --shadow-2xs: 0px 2px 4px 0px rgba(250, 238, 220, 0.08);
+  --shadow-xs: 0px 2px 4px 0px rgba(250, 238, 220, 0.10);
+  --shadow-sm: 0px 2px 6px 0px rgba(250, 238, 220, 0.12), 0px 1px 2px -1px rgba(250, 238, 220, 0.08);
+  --shadow: 0px 4px 8px 0px rgba(250, 238, 220, 0.12), 0px 1px 3px -1px rgba(250, 238, 220, 0.08);
+  --shadow-md: 0px 6px 12px 0px rgba(250, 238, 220, 0.15), 0px 2px 4px -1px rgba(250, 238, 220, 0.10);
+  --shadow-lg: 0px 8px 16px 0px rgba(250, 238, 220, 0.18), 0px 4px 6px -1px rgba(250, 238, 220, 0.12);
+  --shadow-xl: 0px 12px 24px 0px rgba(250, 238, 220, 0.20), 0px 8px 10px -1px rgba(250, 238, 220, 0.15);
+  --shadow-2xl: 0px 16px 32px 0px rgba(250, 238, 220, 0.22);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: hsl(30, 15%, 12%);
+  --foreground: hsl(36, 75%, 92%);
+  --card: hsl(30, 15%, 18%);
+  --card-foreground: hsl(36, 75%, 92%);
+  --popover: hsl(30, 15%, 12%);
+  --popover-foreground: hsl(36, 75%, 92%);
+  --primary: hsl(36, 75%, 92%);
+  --primary-foreground: hsl(25, 50%, 30%);
+  --secondary: hsl(36, 70%, 88%);
+  --secondary-foreground: hsl(25, 50%, 30%);
+  --muted: hsl(30, 15%, 18%);
+  --muted-foreground: hsl(36, 60%, 70%);
+  --accent: hsl(36, 65%, 85%);
+  --accent-foreground: hsl(25, 50%, 30%);
+  --destructive: hsl(0, 70%, 50%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(30, 15%, 25%);
+  --input: hsl(30, 15%, 18%);
+  --ring: hsl(36, 75%, 92%);
+  --chart-1: hsl(36, 75%, 92%);
+  --chart-2: hsl(36, 70%, 88%);
+  --chart-3: hsl(36, 65%, 85%);
+  --chart-4: hsl(36, 60%, 80%);
+  --chart-5: hsl(36, 55%, 75%);
+  --sidebar: hsl(30, 15%, 18%);
+  --sidebar-foreground: hsl(36, 75%, 92%);
+  --sidebar-primary: hsl(36, 75%, 92%);
+  --sidebar-primary-foreground: hsl(25, 50%, 30%);
+  --sidebar-accent: hsl(30, 15%, 12%);
+  --sidebar-accent-foreground: hsl(36, 60%, 70%);
+  --sidebar-border: hsl(30, 15%, 25%);
+  --sidebar-ring: hsl(36, 75%, 92%);
+  --font-sans: 'Montserrat', 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-mono: 'Menlo', monospace;
+  --radius: 0.5rem;
+  --shadow-2xs: 0px 2px 4px 0px rgba(250, 238, 220, 0.08);
+  --shadow-xs: 0px 2px 4px 0px rgba(250, 238, 220, 0.10);
+  --shadow-sm: 0px 2px 6px 0px rgba(250, 238, 220, 0.12), 0px 1px 2px -1px rgba(250, 238, 220, 0.08);
+  --shadow: 0px 4px 8px 0px rgba(250, 238, 220, 0.12), 0px 1px 3px -1px rgba(250, 238, 220, 0.08);
+  --shadow-md: 0px 6px 12px 0px rgba(250, 238, 220, 0.15), 0px 2px 4px -1px rgba(250, 238, 220, 0.10);
+  --shadow-lg: 0px 8px 16px 0px rgba(250, 238, 220, 0.18), 0px 4px 6px -1px rgba(250, 238, 220, 0.12);
+  --shadow-xl: 0px 12px 24px 0px rgba(250, 238, 220, 0.20), 0px 8px 10px -1px rgba(250, 238, 220, 0.15);
+  --shadow-2xl: 0px 16px 32px 0px rgba(250, 238, 220, 0.22);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s infinite;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+  }
+
+  .modal-backdrop {
+    backdrop-filter: blur(4px);
+  }
+
+  .hamburger-line {
+    transition: all 0.3s ease;
+  }
+
+  .hamburger-active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger-active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
