@@ -1,12 +1,12 @@
 import { Db, Collection, ObjectId } from "mongodb";
-import { getDb } from "./mongodb";
+import { getDb } from "./mongodb.js";
 import {
   type Category,
   type Product,
   type InsertCategory,
   type InsertProduct,
   type ProductSearch,
-} from "../../shared/schema";
+} from "../../shared/schema.js";
 
 export class MongoStorage {
   private db: Db;
