@@ -20,7 +20,9 @@ export class MongoStorage {
   }
 
   async getCategories(): Promise<Category[]> {
+    console.log('[Storage] Fetching categories...');
     const categories = await this.categoriesCollection.find({}).toArray();
+    console.log(`[Storage] Found ${categories.length} categories`);
     return categories.map((cat) => ({ ...cat, _id: cat._id?.toString() }));
   }
 
@@ -91,10 +93,12 @@ export class MongoStorage {
     collectionType: string,
     limit: number = 6,
   ): Promise<Product[]> {
+    console.log(`[Storage] Fetching products for collection: ${collectionType}, limit: ${limit}`);
     const products = await this.productsCollection
       .find({ collectionType: collectionType as any })
       .limit(limit)
       .toArray();
+    console.log(`[Storage] Found ${products.length} products for collection ${collectionType}`);
     return products.map((product) => ({
       ...product,
       _id: product._id?.toString(),
@@ -109,7 +113,9 @@ export class MongoStorage {
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
+    console.log(`[Storage] Fetching products for category: ${category}`);
     const products = await this.productsCollection.find({ category }).toArray();
+    console.log(`[Storage] Found ${products.length} products for category ${category}`);
     return products.map((product) => ({
       ...product,
       _id: product._id?.toString(),
@@ -150,6 +156,9 @@ export class MongoStorage {
 }
 
 export async function getStorage(): Promise<MongoStorage> {
+  console.log('[Storage] Creating storage instance...');
   const db = await getDb();
-  return new MongoStorage(db);
+  const storage = new MongoStorage(db);
+  console.log('[Storage] Storage instance created successfully');
+  return storage;
 }

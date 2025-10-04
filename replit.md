@@ -4,6 +4,24 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Added Comprehensive Logging for Debugging (Oct 4, 2025)
+- **Purpose**: Debug why products aren't loading in Vercel deployment
+- **Changes**: Added detailed console.log statements throughout serverless functions
+  - MongoDB connection logging in `api/_lib/mongodb.ts`
+  - Storage operations logging in `api/_lib/storage.ts`
+  - Request/response logging in all API endpoints
+- **What Gets Logged**:
+  - Database connection status
+  - Number of categories/products fetched
+  - Query parameters received
+  - Any errors with full stack traces
+- **How to View Logs in Vercel**:
+  1. Go to your Vercel deployment
+  2. Click on "Functions" tab
+  3. Select the function that was called (e.g., `/api/categories`)
+  4. View real-time logs showing MongoDB connection and data retrieval
+- **Log Format**: All logs prefixed with `[API /endpoint]`, `[Storage]`, or `[MongoDB]` for easy filtering
+
 ## Vercel ES Modules Import Fix (Oct 4, 2025)
 - **Issue**: Collections and products not loading in Vercel deployment - 500 errors with "Cannot find module"
 - **Root Cause**: TypeScript + ES Modules configuration issue

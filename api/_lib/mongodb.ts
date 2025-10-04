@@ -29,6 +29,9 @@ const clientPromise = cached._mongoClientPromise!;
 export default clientPromise;
 
 export async function getDb(): Promise<Db> {
+  console.log('[MongoDB] Attempting to connect to database...');
   const client = await clientPromise;
-  return client.db('saree_catalog');
+  const db = client.db('saree_catalog');
+  console.log('[MongoDB] Successfully connected to saree_catalog database');
+  return db;
 }
