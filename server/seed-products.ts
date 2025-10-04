@@ -326,7 +326,58 @@ const sampleProducts = [
   },
 ];
 
-async function seedProducts() {
+const sampleCategories = [
+  {
+    name: "New Trends",
+    slug: "new-trends",
+    description: "Latest trending sarees with contemporary designs and modern patterns",
+    imageUrl: "/images/New Trends.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    name: "Pure Cotton",
+    slug: "pure-cotton",
+    description: "Comfortable pure cotton sarees ideal for daily wear and casual occasions",
+    imageUrl: "/images/Pure Cotton.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    name: "Satin",
+    slug: "satin",
+    description: "Luxurious satin sarees with smooth texture and lustrous finish",
+    imageUrl: "/images/Satin.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    name: "Banarasi Silk",
+    slug: "banarasi-silk",
+    description: "Traditional Banarasi silk sarees with authentic craftsmanship and heritage designs",
+    imageUrl: "/images/Banarasi Silk.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    name: "Georgette",
+    slug: "georgette",
+    description: "Lightweight georgette sarees perfect for all occasions with elegant draping",
+    imageUrl: "/images/Georgette.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    name: "Printed Silk",
+    slug: "printed-silk",
+    description: "Beautiful printed silk sarees with vibrant colors and artistic patterns",
+    imageUrl: "/images/Printed Silk.svg",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+async function seedDatabase() {
   const client = new MongoClient(mongoUri!);
   
   try {
@@ -334,11 +385,21 @@ async function seedProducts() {
     console.log('Connected to MongoDB for seeding');
     
     const db = client.db('saree_catalog');
+    const categoriesCollection = db.collection('categories');
     const productsCollection = db.collection('products');
     
-    const count = await productsCollection.countDocuments();
+    // Seed categories
+    const categoryCount = await categoriesCollection.countDocuments();
+    if (categoryCount === 0) {
+      await categoriesCollection.insertMany(sampleCategories);
+      console.log(`Successfully inserted ${sampleCategories.length} categories`);
+    } else {
+      console.log(`Categories already exist (${categoryCount} found)`);
+    }
     
-    if (count === 0) {
+    // Seed products
+    const productCount = await productsCollection.countDocuments();
+    if (productCount === 0) {
       await productsCollection.insertMany(sampleProducts);
       console.log(`Successfully inserted ${sampleProducts.length} sample products`);
     } else {
@@ -347,12 +408,17 @@ async function seedProducts() {
       console.log(`Replaced existing products with ${sampleProducts.length} sample products`);
     }
     
+    console.log('\n✅ Database seeding completed successfully!');
+    console.log(`Total categories: ${sampleCategories.length}`);
+    console.log(`Total products: ${sampleProducts.length}`);
+    
   } catch (error) {
-    console.error('Error seeding products:', error);
+    console.error('❌ Error seeding database:', error);
+    throw error;
   } finally {
     await client.close();
     console.log('Disconnected from MongoDB');
   }
 }
 
-seedProducts();
+seedDatabase();

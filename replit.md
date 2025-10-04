@@ -4,6 +4,19 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Database Seeding for Production (Oct 4, 2025)
+- **Issue**: Collections and products not loading in Vercel deployment despite MONGODB_URI being set
+- **Root Cause**: Production MongoDB database was empty - serverless functions don't auto-seed like the local Express server does
+- **Solution**: Created comprehensive seed script that populates both categories and products
+  - Added `npm run seed` script to package.json
+  - Updated `server/seed-products.ts` to seed both categories (6) and products (14)
+  - Script safely checks for existing data before seeding
+- **How to Seed Production Database**:
+  1. Make sure MONGODB_URI environment variable points to your production MongoDB
+  2. Run `npm run seed` locally (it will use the MONGODB_URI from your environment)
+  3. Or run the seed script as a one-time command in Vercel's Functions console
+- **Status**: ✅ Seed script tested and working, ready to populate production database
+
 ## Vercel Deployment TypeScript Fix (Oct 4, 2025)
 - **Issue**: Vercel build failing with TypeScript error: `Module '"zod"' has no exported member 'z'`
 - **Root Cause**: `api/tsconfig.json` was using `moduleResolution: "node16"` which had compatibility issues with Vercel's build process
