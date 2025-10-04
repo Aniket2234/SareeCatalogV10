@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Header from "@/components/header";
 import { ProductCard } from "@/components/product-card";
 import { FilterPanel } from "@/components/filter-panel";
 import { SortPanel, type SortOption } from "@/components/sort-panel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, SlidersHorizontal, ChevronDown, ChevronUp } from "lucide-react";
+import { Search, SlidersHorizontal, ChevronDown, ChevronUp, Mic, MicOff } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Product } from "@shared/schema";
@@ -29,6 +29,9 @@ export default function CategoryPage() {
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isMaterialOpen, setIsMaterialOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSupported, setIsSupported] = useState(true);
+  const recognitionRef = useRef<any>(null);
   
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: [isCollection ? `/api/collections/${slug}` : `/api/products/category/${slug}`],
@@ -42,6 +45,59 @@ export default function CategoryPage() {
     },
     enabled: !!slug,
   });
+
+  // Voice recognition setup
+  useEffect(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      setIsSupported(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results)
+        .map((result: any) => result[0].transcript)
+        .join('');
+      setSearchQuery(transcript);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
+
+  const toggleVoiceSearch = () => {
+    if (!recognitionRef.current) return;
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+  };
 
   // Extract unique materials and colors from products
   const { availableMaterials, availableColors, maxPrice } = useMemo(() => {
@@ -62,7 +118,7 @@ export default function CategoryPage() {
     return {
       availableMaterials: Array.from(materials).sort(),
       availableColors: Array.from(colors).sort(),
-      maxPrice: Math.ceil(max / 100) * 100, // Round up to nearest 100
+      maxPrice: Math.ceil(max / 100) * 100,
     };
   }, [products]);
 
@@ -196,9 +252,23 @@ export default function CategoryPage() {
                 placeholder="What are you looking for?"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-5 bg-input border-none rounded-lg placeholder:text-muted-foreground"
+                className="pl-10 pr-12 py-5 bg-input border-none rounded-lg placeholder:text-muted-foreground"
                 data-testid="input-search-mobile"
               />
+              {isSupported && (
+                <button
+                  onClick={toggleVoiceSearch}
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full transition-all ${
+                    isListening 
+                      ? 'bg-red-500 text-white animate-pulse' 
+                      : 'text-muted-foreground hover:bg-accent'
+                  }`}
+                  title={isListening ? 'Stop listening' : 'Voice search'}
+                  data-testid="button-voice-search-mobile"
+                >
+                  {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+                </button>
+              )}
             </div>
           </div>
 
@@ -236,9 +306,23 @@ export default function CategoryPage() {
                   placeholder="What are you looking for?"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-input border-border rounded-lg placeholder:text-muted-foreground"
+                  className="pl-10 pr-12 py-2 bg-input border-border rounded-lg placeholder:text-muted-foreground"
                   data-testid="input-search-desktop"
                 />
+                {isSupported && (
+                  <button
+                    onClick={toggleVoiceSearch}
+                    className={`absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full transition-all ${
+                      isListening 
+                        ? 'bg-red-500 text-white animate-pulse' 
+                        : 'text-muted-foreground hover:bg-accent'
+                    }`}
+                    title={isListening ? 'Stop listening' : 'Voice search'}
+                    data-testid="button-voice-search-desktop"
+                  >
+                    {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+                  </button>
+                )}
               </div>
               
               <Button
