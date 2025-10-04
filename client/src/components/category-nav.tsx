@@ -83,40 +83,33 @@ export default function CategoryNav({
 
   if (isLoading) {
     return (
-      <section
-        className="bg-white"
-        data-testid="category-nav-loading"
-      >
+      <section className="bg-white" data-testid="category-nav-loading">
         <div className="container mx-auto px-4 py-1 sm:py-2">
-        <div className="relative">
-          <div className="overflow-hidden">
-            <div
-              className="flex space-x-8 pb-1 sm:pb-2 pt-0 sm:pt-1"
-              style={{ minHeight: "260px" }}
-            >
-              {Array.from({ length: 6 }).map((_, index) => (
-                <Skeleton
-                  key={index}
-                  className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full flex-shrink-0"
-                />
-              ))}
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
-              <div className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full w-0 shadow-sm" />
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div
+                className="flex space-x-8 pb-1 sm:pb-2 pt-0 sm:pt-1"
+                style={{ minHeight: "260px" }}
+              >
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full flex-shrink-0"
+                  />
+                ))}
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+                <div className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full w-0 shadow-sm" />
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
     );
   }
 
   return (
-    <section
-      id="categories"
-      className="bg-white"
-      data-testid="category-nav"
-    >
+    <section id="categories" className="bg-white" data-testid="category-nav">
       <div className="container mx-auto px-4 py-1 sm:py-2">
         <div className="relative">
           <div
@@ -130,7 +123,7 @@ export default function CategoryNav({
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              minHeight: "260px",
+              minHeight: "20px",
               cursor: "grab",
             }}
           >
