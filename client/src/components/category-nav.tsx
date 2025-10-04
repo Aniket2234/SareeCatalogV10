@@ -92,17 +92,17 @@ export default function CategoryNav({
           <div className="overflow-hidden">
             <div
               className="flex space-x-8 pb-1 sm:pb-2 pt-0 sm:pt-1"
-              style={{ minHeight: "220px" }}
+              style={{ minHeight: "300px" }}
             >
               {Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton
                   key={index}
-                  className="w-36 h-36 sm:w-52 sm:h-52 md:w-56 md:h-56 rounded-full flex-shrink-0"
+                  className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full flex-shrink-0"
                 />
               ))}
             </div>
             <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
-              <div className="bg-gradient-to-r from-[#faeedc] via-[#faeedc] to-[#faeedc] h-1 rounded-full w-0 shadow-sm" />
+              <div className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full w-0 shadow-sm" />
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default function CategoryNav({
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              minHeight: "10px",
+              minHeight: "300px",
               cursor: "grab",
             }}
           >
@@ -147,7 +147,7 @@ export default function CategoryNav({
                   src={category.imageUrl}
                   alt={category.name}
                   className={`object-contain cursor-pointer transition-all duration-300 
-                    w-36 h-36 sm:w-52 sm:h-52 md:w-56 md:h-56
+                    w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72
                     ${
                       selectedCategory === category.slug
                         ? "transform scale-125"
@@ -160,7 +160,7 @@ export default function CategoryNav({
 
           <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
             <div
-              className="bg-gradient-to-r from-[#faeedc] via-[#faeedc] to-[#faeedc] h-1 rounded-full transition-all duration-300 ease-out shadow-sm"
+              className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full transition-all duration-300 ease-out shadow-sm"
               style={{ width: `${scrollProgress}%` }}
             />
           </div>
