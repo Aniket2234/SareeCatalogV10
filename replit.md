@@ -4,6 +4,26 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Vercel Serverless Architecture Refactoring - Completed
+- **Major Architectural Change**: Refactored from monolithic Express.js app to Vercel serverless functions
+- **API Structure**: Created `/api` directory with serverless function endpoints:
+  - `/api/categories` - Get all categories
+  - `/api/categories/[slug]` - Get category by slug
+  - `/api/products` - Search/filter products
+  - `/api/products/[id]` - Get product by ID
+  - `/api/products/category/[category]` - Get products by category
+  - `/api/collections/[collectionType]` - Get products by collection type
+  - `/api/search` - Search products by query
+- **MongoDB Connection Pooling**: Implemented proper connection pooling for serverless using globalThis caching
+  - Handles cold starts efficiently
+  - Reuses connections across warm lambda invocations
+  - Configured with optimal pool settings (maxPoolSize: 10, minPoolSize: 2)
+- **Vercel Configuration**: Created `vercel.json` with proper routing, rewrites, and build settings
+- **TypeScript Setup**: Created dedicated `api/tsconfig.json` for serverless functions with proper path resolution
+- **Build Scripts**: Updated `package.json` with Vercel-compatible build commands
+- **Deployment Files**: Created `.vercelignore` and `.env.example` for deployment
+- **Status**: ✅ Serverless architecture verified by architect, ready for Vercel deployment
+
 ## Responsive Design & Navigation Improvements - Completed
 - **Desktop Compatibility**: Fixed product cards being too large on desktop screens
 - **Responsive Grid System**: Product grids now adapt to screen size:
@@ -87,10 +107,15 @@ Preferred communication style: Simple, everyday language.
 - **Component Structure**: Modular components including carousel, product grid, search bar, category navigation, and product modal
 
 ## Backend Architecture
-- **Framework**: Express.js with TypeScript
-- **API Design**: RESTful API with routes for categories and products
+- **Development**: Express.js with TypeScript (for local development on Replit)
+- **Production**: Vercel serverless functions (individual API routes in `/api` directory)
+- **API Design**: RESTful API with routes for categories, products, search, and collections
 - **Development Setup**: Hot reload with Vite integration in development mode
-- **Error Handling**: Centralized error handling middleware
+- **Serverless Features**: 
+  - Connection pooling with globalThis caching for MongoDB
+  - Individual function endpoints for optimal cold start performance
+  - TypeScript support with dedicated tsconfig for API functions
+- **Error Handling**: Centralized error handling in both Express and serverless functions
 - **Logging**: Request/response logging for API endpoints
 
 ## Data Storage
