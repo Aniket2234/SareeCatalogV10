@@ -4,6 +4,15 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Vercel Deployment TypeScript Fix (Oct 4, 2025)
+- **Issue**: Vercel build failing with TypeScript error: `Module '"zod"' has no exported member 'z'`
+- **Root Cause**: `api/tsconfig.json` was using `moduleResolution: "node16"` which had compatibility issues with Vercel's build process
+- **Solution**: Updated `api/tsconfig.json`:
+  - Changed `moduleResolution` from "node16" to "node" for better Vercel compatibility
+  - Set `noEmit` to `true` (Vercel handles TypeScript compilation internally)
+  - Fixed paths configuration to use `@shared/*` for cleaner imports
+- **Status**: ✅ TypeScript configuration now compatible with Vercel deployment
+
 ## Fresh GitHub Import - Replit Environment Setup (Oct 4, 2025)
 - **Import Source**: GitHub repository clone
 - **Environment Setup**: Configured for Replit environment

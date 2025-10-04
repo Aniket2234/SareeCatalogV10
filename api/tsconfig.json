@@ -10,14 +10,14 @@
     "skipLibCheck": true,
     "strict": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
+    "noEmit": true,
     "types": ["node"],
     "baseUrl": "..",
     "paths": {
-      "../../shared/*": ["../shared/*"]
+      "@shared/*": ["shared/*"]
     }
   },
   "include": ["**/*", "../shared/**/*"],
