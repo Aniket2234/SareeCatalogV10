@@ -4,23 +4,22 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
-## Vercel Serverless Functions Import Fix (Oct 4, 2025)
-- **Issue**: Collections and products not loading in Vercel deployment (showing "No products found")
-- **Root Cause**: Serverless API functions were using `.js` extensions in import statements
-  - Example: `import { getStorage } from '../_lib/storage.js'`
-  - This works locally with `tsx` runtime but fails in Vercel's TypeScript compilation
-  - Vercel expects TypeScript imports without extensions
-- **Solution**: Removed all `.js` extensions from import statements in `/api` directory
-  - Fixed imports in all API endpoints (categories, products, collections, search)
-  - Fixed imports in `api/_lib/storage.ts` and all route handlers
-  - Changed from `'../storage.js'` to `'../storage'`
-- **Files Updated**:
-  - `api/_lib/storage.ts` - Core storage module imports
-  - `api/categories/index.ts`, `api/categories/[slug].ts`
-  - `api/products/index.ts`, `api/products/[id].ts`, `api/products/category/[category].ts`
-  - `api/collections/[collectionType].ts`
-  - `api/search.ts`
-- **Status**: ✅ All imports fixed, Vercel deployment should now load products correctly
+## Vercel ES Modules Import Fix (Oct 4, 2025)
+- **Issue**: Collections and products not loading in Vercel deployment - 500 errors with "Cannot find module"
+- **Root Cause**: TypeScript + ES Modules configuration issue
+  - Project uses `"type": "module"` in package.json (ES modules)
+  - Node.js ESM **requires** explicit `.js` extensions in imports, even in TypeScript files
+  - This is a known TypeScript quirk: you must write `.js` in imports even though files are `.ts`
+  - TypeScript doesn't rewrite import paths during compilation
+- **Solution**: Ensured all imports in `/api` directory use `.js` extensions
+  - TypeScript source: `import { getStorage } from '../_lib/storage.js'`
+  - After compilation: imports correctly resolve to compiled `.js` files
+  - Local development works because `tsx` handles this automatically
+  - Vercel's Node.js runtime needs explicit extensions for ESM
+- **Why This Matters**: 
+  - ✅ Works: `import { getStorage } from '../_lib/storage.js'` (correct for ESM)
+  - ❌ Fails: `import { getStorage } from '../_lib/storage'` (Node.js can't find module)
+- **Status**: ✅ All ES module imports correctly configured with `.js` extensions
 
 ## Vercel Deployment TypeScript Fix (Oct 4, 2025)
 - **Issue**: Vercel build failing with TypeScript error: `Module '"zod"' has no exported member 'z'`
