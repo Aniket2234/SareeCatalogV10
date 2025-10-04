@@ -84,7 +84,7 @@ export default function CategoryNav({
   if (isLoading) {
     return (
       <section className="bg-white" data-testid="category-nav-loading">
-        <div className="container mx-auto px-4 py-1 sm:py-2">
+        <div className="py-1 sm:py-2">
           <div className="relative">
             <div className="overflow-hidden">
               <div
@@ -98,7 +98,7 @@ export default function CategoryNav({
                   />
                 ))}
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+              <div className="w-full bg-gray-200 rounded-full h-1 mt-1 px-4">
                 <div className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full w-0 shadow-sm" />
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function CategoryNav({
 
   return (
     <section id="categories" className="bg-white" data-testid="category-nav">
-      <div className="container mx-auto px-4 py-1 sm:py-2">
+      <div className="py-1 sm:py-2">
         <div className="relative">
           <div
             ref={scrollContainerRef}
@@ -123,7 +123,7 @@ export default function CategoryNav({
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              minHeight: "20px",
+              minHeight: "260px",
               cursor: "grab",
             }}
           >
@@ -151,7 +151,7 @@ export default function CategoryNav({
             ))}
           </div>
 
-          <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+          <div className="w-full bg-gray-200 rounded-full h-1 mt-1 px-4">
             <div
               className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-1 rounded-full transition-all duration-300 ease-out shadow-sm"
               style={{ width: `${scrollProgress}%` }}
