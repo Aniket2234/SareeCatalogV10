@@ -1,5 +1,11 @@
-import { MongoClient, Db, Collection, ObjectId } from 'mongodb';
-import { type Category, type Product, type InsertCategory, type InsertProduct, type ProductSearch } from "@shared/schema";
+import { MongoClient, Db, Collection, ObjectId } from "mongodb";
+import {
+  type Category,
+  type Product,
+  type InsertCategory,
+  type InsertProduct,
+  type ProductSearch,
+} from "@shared/schema";
 
 export interface IStorage {
   getCategories(): Promise<Category[]>;
@@ -8,7 +14,10 @@ export interface IStorage {
   getProducts(search?: ProductSearch): Promise<Product[]>;
   getProductById(id: string): Promise<Product | null>;
   getProductsByCategory(category: string): Promise<Product[]>;
-  getProductsByCollection(collectionType: string, limit?: number): Promise<Product[]>;
+  getProductsByCollection(
+    collectionType: string,
+    limit?: number,
+  ): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
   searchProducts(query: string): Promise<Product[]>;
   initializeData(): Promise<void>;
@@ -22,25 +31,25 @@ export class MongoStorage implements IStorage {
 
   constructor(uri: string) {
     this.client = new MongoClient(uri);
-    this.db = this.client.db('saree_catalog');
-    this.categoriesCollection = this.db.collection<Category>('categories');
-    this.productsCollection = this.db.collection<Product>('products');
+    this.db = this.client.db("saree_catalog");
+    this.categoriesCollection = this.db.collection<Category>("categories");
+    this.productsCollection = this.db.collection<Product>("products");
   }
 
   async connect(): Promise<void> {
     await this.client.connect();
-    console.log('Connected to MongoDB');
+    console.log("Connected to MongoDB");
     await this.initializeData();
   }
 
   async disconnect(): Promise<void> {
     await this.client.close();
-    console.log('Disconnected from MongoDB');
+    console.log("Disconnected from MongoDB");
   }
 
   async getCategories(): Promise<Category[]> {
     const categories = await this.categoriesCollection.find({}).toArray();
-    return categories.map(cat => ({ ...cat, _id: cat._id?.toString() }));
+    return categories.map((cat) => ({ ...cat, _id: cat._id?.toString() }));
   }
 
   async getCategoryBySlug(slug: string): Promise<Category | null> {
@@ -56,7 +65,9 @@ export class MongoStorage implements IStorage {
       updatedAt: now,
     };
 
-    const result = await this.categoriesCollection.insertOne(newCategory as any);
+    const result = await this.categoriesCollection.insertOne(
+      newCategory as any,
+    );
     return {
       ...newCategory,
       _id: result.insertedId.toString(),
@@ -69,12 +80,12 @@ export class MongoStorage implements IStorage {
     if (search) {
       if (search.search) {
         filter.$or = [
-          { name: { $regex: search.search, $options: 'i' } },
-          { description: { $regex: search.search, $options: 'i' } },
+          { name: { $regex: search.search, $options: "i" } },
+          { description: { $regex: search.search, $options: "i" } },
         ];
       }
 
-      if (search.category && search.category !== 'all') {
+      if (search.category && search.category !== "all") {
         filter.category = search.category;
       }
 
@@ -98,25 +109,39 @@ export class MongoStorage implements IStorage {
     }
 
     const products = await this.productsCollection.find(filter).toArray();
-    return products.map(product => ({ ...product, _id: product._id?.toString() }));
+    return products.map((product) => ({
+      ...product,
+      _id: product._id?.toString(),
+    }));
   }
 
-  async getProductsByCollection(collectionType: string, limit: number = 6): Promise<Product[]> {
+  async getProductsByCollection(
+    collectionType: string,
+    limit: number = 6,
+  ): Promise<Product[]> {
     const products = await this.productsCollection
       .find({ collectionType: collectionType as any })
       .limit(limit)
       .toArray();
-    return products.map(product => ({ ...product, _id: product._id?.toString() }));
+    return products.map((product) => ({
+      ...product,
+      _id: product._id?.toString(),
+    }));
   }
 
   async getProductById(id: string): Promise<Product | null> {
-    const product = await this.productsCollection.findOne({ _id: new ObjectId(id) } as any);
+    const product = await this.productsCollection.findOne({
+      _id: new ObjectId(id),
+    } as any);
     return product ? { ...product, _id: product._id?.toString() } : null;
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
     const products = await this.productsCollection.find({ category }).toArray();
-    return products.map(product => ({ ...product, _id: product._id?.toString() }));
+    return products.map((product) => ({
+      ...product,
+      _id: product._id?.toString(),
+    }));
   }
 
   async createProduct(product: InsertProduct): Promise<Product> {
@@ -135,15 +160,20 @@ export class MongoStorage implements IStorage {
   }
 
   async searchProducts(query: string): Promise<Product[]> {
-    const products = await this.productsCollection.find({
-      $or: [
-        { name: { $regex: query, $options: 'i' } },
-        { description: { $regex: query, $options: 'i' } },
-        { material: { $regex: query, $options: 'i' } },
-      ],
-    }).toArray();
+    const products = await this.productsCollection
+      .find({
+        $or: [
+          { name: { $regex: query, $options: "i" } },
+          { description: { $regex: query, $options: "i" } },
+          { material: { $regex: query, $options: "i" } },
+        ],
+      })
+      .toArray();
 
-    return products.map(product => ({ ...product, _id: product._id?.toString() }));
+    return products.map((product) => ({
+      ...product,
+      _id: product._id?.toString(),
+    }));
   }
 
   async initializeData(): Promise<void> {
@@ -152,67 +182,73 @@ export class MongoStorage implements IStorage {
     if (categoryCount === 0) {
       const categories = [
         {
-          name: "Pure Cotton",
-          slug: "pure-cotton",
-          description: "Comfortable pure cotton sarees ideal for daily wear and casual occasions",
-          imageUrl: "/images/1.svg",
+          name: "New Trends",
+          slug: "new-trends",
+          description:
+            "Latest trending sarees with contemporary designs and modern patterns",
+          imageUrl: "/images/New Trends.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "New Trends",
-          slug: "new-trends",
-          description: "Latest trending sarees with contemporary designs and modern patterns",
-          imageUrl: "/images/2.svg",
+          name: "Pure Cotton",
+          slug: "pure-cotton",
+          description:
+            "Comfortable pure cotton sarees ideal for daily wear and casual occasions",
+          imageUrl: "/images/Pure Cotton.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Satin",
           slug: "satin",
-          description: "Luxurious satin sarees with smooth texture and lustrous finish",
-          imageUrl: "/images/3.svg",
+          description:
+            "Luxurious satin sarees with smooth texture and lustrous finish",
+          imageUrl: "/images/Satin.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Banarasi Silk",
           slug: "banarasi-silk",
-          description: "Traditional Banarasi silk sarees with authentic craftsmanship and heritage designs",
-          imageUrl: "/images/4.svg",
+          description:
+            "Traditional Banarasi silk sarees with authentic craftsmanship and heritage designs",
+          imageUrl: "/images/Banarasi Silk.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Georgette",
           slug: "georgette",
-          description: "Lightweight georgette sarees perfect for all occasions with elegant draping",
-          imageUrl: "/images/5.svg",
+          description:
+            "Lightweight georgette sarees perfect for all occasions with elegant draping",
+          imageUrl: "/images/Georgette.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           name: "Printed Silk",
           slug: "printed-silk",
-          description: "Beautiful printed silk sarees with vibrant colors and artistic patterns",
-          imageUrl: "/images/6.svg",
+          description:
+            "Beautiful printed silk sarees with vibrant colors and artistic patterns",
+          imageUrl: "/images/Printed Silk.svg",
           createdAt: new Date(),
           updatedAt: new Date(),
-        }
+        },
       ];
 
       await this.categoriesCollection.insertMany(categories);
-      console.log('Categories inserted successfully');
+      console.log("Categories inserted successfully");
     } else {
-      console.log('Categories already exist, skipping initialization');
+      console.log("Categories already exist, skipping initialization");
     }
 
-    console.log('Data initialization complete');
+    console.log("Data initialization complete");
   }
 
   async resetCategories(): Promise<void> {
     await this.categoriesCollection.deleteMany({});
-    console.log('Categories collection cleared');
+    console.log("Categories collection cleared");
     await this.initializeData();
   }
 }
@@ -223,7 +259,7 @@ export function getStorage(): MongoStorage {
   if (!storageInstance) {
     const mongoUri = process.env.MONGODB_URI;
     if (!mongoUri) {
-      throw new Error('MONGODB_URI environment variable is required');
+      throw new Error("MONGODB_URI environment variable is required");
     }
     storageInstance = new MongoStorage(mongoUri);
   }

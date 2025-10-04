@@ -4,6 +4,15 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Category Images Fix - Completed
+- **Issue**: Category navigation images were not loading due to filename mismatch
+- **Root Cause**: Database had paths like `/images/1.svg` but files were named with full names and spaces (e.g., "Banarasi Silk.svg")
+- **Solution**: 
+  1. Renamed image files to remove spaces: `Banarasi-Silk.svg`, `New-Trends.svg`, `Pure-Cotton.svg`, `Printed-Silk.svg`
+  2. Updated MongoDB database with correct image paths matching the renamed files
+- **Images Fixed**: All 6 category images now properly mapped and accessible
+- **Note**: Users may need to do a hard refresh (Ctrl+Shift+R / Cmd+Shift+R) to clear browser cache
+
 ## Hamburger Menu Improvements - Completed
 - **Direction**: Menu now slides in from the right instead of left
 - **Background**: Removed background image, replaced with clean solid background
