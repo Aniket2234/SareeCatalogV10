@@ -60,13 +60,19 @@ export default function Header() {
           <ArrowLeft size={24} className="text-foreground" />
         </button>
 
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
+        <button 
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setLocation('/home');
+          }}
+          className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
           <div className="w-6 h-0.5 bg-[#faeedc]"></div>
           <h1 className="font-serif text-xl font-bold tracking-widest text-[#8B4513]" data-testid="logo-text" style={{ letterSpacing: '0.15em' }}>
             ATAURUM
           </h1>
           <div className="w-6 h-0.5 bg-[#faeedc]"></div>
-        </div>
+        </button>
 
         <button
           onClick={toggleMobileMenu}

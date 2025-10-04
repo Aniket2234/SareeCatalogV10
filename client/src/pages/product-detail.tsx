@@ -258,10 +258,10 @@ export default function ProductDetailPage() {
       {similarProducts.length > 0 && (
         <div className="bg-card px-4 py-6">
           <h2 className="text-xl font-serif font-bold text-foreground mb-4">Similar Products</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
             {similarProducts
               .filter(p => p._id !== product._id)
-              .slice(0, 4)
+              .slice(0, 5)
               .map((similarProduct) => (
                 <ProductCard 
                   key={similarProduct._id} 

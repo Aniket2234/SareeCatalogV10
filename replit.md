@@ -4,6 +4,18 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Responsive Design & Navigation Improvements - Completed
+- **Desktop Compatibility**: Fixed product cards being too large on desktop screens
+- **Responsive Grid System**: Product grids now adapt to screen size:
+  - Mobile (default): 2 columns
+  - Small screens (sm): 3 columns
+  - Medium screens (md): 3 columns
+  - Large screens (lg): 4 columns
+  - Extra large screens (xl): 5 columns
+- **Applied to**: Category pages, product detail similar products section
+- **Logo Navigation**: ATAURUM logo now clickable - navigates to /home and scrolls to top
+- **Mobile View**: Kept unchanged as requested
+
 ## Category Images Fix - Completed
 - **Issue**: Category navigation images were not loading due to filename mismatch
 - **Root Cause**: Database had paths like `/images/1.svg` but files were named with full names and spaces (e.g., "Banarasi Silk.svg")

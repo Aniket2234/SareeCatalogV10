@@ -107,7 +107,7 @@ export default function CategoryPage() {
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="h-96 bg-muted animate-pulse rounded-lg" />
             ))}
@@ -158,7 +158,7 @@ export default function CategoryPage() {
 
         <div className="container mx-auto px-4 py-4">
           {displayProducts && displayProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
               {displayProducts.map((product) => (
                 <ProductCard
                   key={product._id}
