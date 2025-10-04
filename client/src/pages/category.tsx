@@ -492,7 +492,7 @@ export default function CategoryPage() {
                   </p>
                 </div>
                 {displayProducts && displayProducts.length > 0 ? (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                     {displayProducts.map((product) => (
                       <ProductCard
                         key={product._id}
