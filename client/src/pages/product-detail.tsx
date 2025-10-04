@@ -238,11 +238,11 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-2 gap-8 lg:gap-12">
             {/* Left Side - Image Gallery */}
             <div className="space-y-4">
-              <div className="relative bg-card rounded-lg overflow-hidden border border-border">
+              <div className="relative bg-card rounded-lg overflow-hidden border border-border max-w-lg mx-auto">
                 <img
                   src={product.images[selectedImageIndex]}
                   alt={product.name}
-                  className="w-full aspect-[3/4] object-cover"
+                  className="w-full aspect-[2/3] object-cover"
                   data-testid="product-image-desktop"
                 />
               </div>

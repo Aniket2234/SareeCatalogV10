@@ -1,7 +1,7 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
 interface FilterPanelProps {
@@ -37,17 +37,7 @@ export function FilterPanel({
       <SheetContent side="left" className="w-full sm:max-w-md bg-background p-0">
         <div className="flex flex-col h-full">
           <SheetHeader className="px-6 py-4 border-b border-border">
-            <div className="flex items-center justify-between">
-              <SheetTitle className="text-xl font-bold text-foreground">Filters</SheetTitle>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => onOpenChange(false)}
-                className="h-8 w-8"
-              >
-                <X className="h-5 w-5 text-foreground" />
-              </Button>
-            </div>
+            <SheetTitle className="text-xl font-bold text-foreground">Filters</SheetTitle>
           </SheetHeader>
 
           <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">

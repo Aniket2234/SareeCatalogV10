@@ -1,6 +1,5 @@
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Check, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
 
 export type SortOption =
   | "featured"
@@ -45,16 +44,8 @@ export function SortPanel({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="bg-card rounded-t-2xl p-0">
         <div className="flex flex-col">
-          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+          <div className="px-6 py-4 border-b border-border">
             <h3 className="text-lg font-semibold text-foreground">Sort by</h3>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onOpenChange(false)}
-              className="h-8 w-8"
-            >
-              <X className="h-5 w-5 text-foreground" />
-            </Button>
           </div>
 
           <div className="px-6 py-4 space-y-1">
