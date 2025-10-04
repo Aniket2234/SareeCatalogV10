@@ -4,6 +4,28 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
+## Vercel API Fixes - Products Not Loading (Oct 4, 2025)
+- **Issue**: Products API returning HTML instead of JSON in Vercel deployment
+  - Error: `SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON`
+  - Categories were loading but products collections were failing
+- **Root Cause**: Vercel.json routing conflict
+  - The rewrite rule `/api/(.*)` → `/api/$1` was interfering with automatic serverless function routing
+  - Vercel's automatic routing wasn't working properly for dynamic routes like `[collectionType].ts`
+- **Solution Applied**:
+  1. **Fixed vercel.json routing**: Changed rewrite to only match non-API routes using negative lookahead `/((?!api).*)`
+  2. **Added CORS headers** to all API endpoints for proper cross-origin handling:
+     - `/api/categories/index.ts`
+     - `/api/collections/[collectionType].ts`
+     - `/api/products/category/[category].ts`
+     - `/api/products/index.ts`
+  3. **Added OPTIONS handling** for preflight requests
+- **Browser Console Logging**: Comprehensive logging already in place to debug:
+  - All API requests show URL being fetched
+  - Response status codes displayed
+  - Data received (number of items) logged
+  - All errors logged with full details
+- **Status**: ✅ Fixed - Ready for redeployment to Vercel
+
 ## GitHub Import Setup for Replit - Complete (Oct 4, 2025)
 - **Import Type**: Fresh GitHub clone configured for Replit environment
 - **Node.js Setup**: Node.js 20 already installed and verified

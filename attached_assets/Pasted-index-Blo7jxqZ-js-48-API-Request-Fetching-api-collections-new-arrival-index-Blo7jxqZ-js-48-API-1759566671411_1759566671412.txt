@@ -1,0 +1,16 @@
+index-Blo7jxqZ.js:48 [API Request] Fetching: /api/collections/new-arrival
+index-Blo7jxqZ.js:48 [API Request] Fetching: /api/collections/trending
+index-Blo7jxqZ.js:48 [API Request] Fetching: /api/collections/exclusive
+index-Blo7jxqZ.js:260 [Home] Fetching categories from /api/categories
+index-Blo7jxqZ.js:48 [API Response] /api/collections/new-arrival - Status: 200
+index-Blo7jxqZ.js:48 [API Response] /api/collections/trending - Status: 200
+index-Blo7jxqZ.js:48 [API Response] /api/collections/exclusive - Status: 200
+index-Blo7jxqZ.js:48 [API Error] /api/collections/new-arrival - Error: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-Blo7jxqZ.js:48
+index-Blo7jxqZ.js:48 [API Error] /api/collections/trending - Error: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-Blo7jxqZ.js:48
+index-Blo7jxqZ.js:48 [API Error] /api/collections/exclusive - Error: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous) @ index-Blo7jxqZ.js:48
+index-Blo7jxqZ.js:260 [Home] Categories response - Status: 200
+index-Blo7jxqZ.js:260 [Home] Categories data received: (6) [{…}, {…}, {…}, {…}, {…}, {…}]0: {_id: '68de3366e153c1731d1b3df7', name: 'New Trends', slug: 'new-trends', description: 'Latest trending sarees with contemporary designs and modern patterns', imageUrl: '/images/New-Trends.svg', …}1: {_id: '68de3366e153c1731d1b3dfa', name: 'Georgette', slug: 'georgette', description: 'Lightweight georgette sarees perfect for all occasions with elegant draping', imageUrl: '/images/Georgette.svg', …}2: {_id: '68de3366e153c1731d1b3df8', name: 'Satin', slug: 'satin', description: 'Luxurious satin sarees with smooth texture and lustrous finish', imageUrl: '/images/Satin.svg', …}3: {_id: '68de3366e153c1731d1b3df9', name: 'Banarasi Silk', slug: 'banarasi-silk', description: 'Traditional Banarasi silk sarees with authentic craftsmanship and heritage designs', imageUrl: '/images/Banarasi-Silk.svg', …}4: {_id: '68de3366e153c1731d1b3df6', name: 'Pure Cotton', slug: 'pure-cotton', description: 'Comfortable pure cotton sarees ideal for daily wear and casual occasions', imageUrl: '/images/Pure-Cotton.svg', …}5: {_id: '68de3366e153c1731d1b3dfb', name: 'Printed Silk', slug: 'printed-silk', description: 'Beautiful printed silk sarees with vibrant colors and artistic patterns', imageUrl: '/images/Printed-Silk.svg', …}length: 6[[Prototype]]: Array(0)
+index-Blo7jxqZ.js:260 [Home] Number of categories: 6
