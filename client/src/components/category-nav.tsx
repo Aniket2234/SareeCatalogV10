@@ -123,7 +123,7 @@ export default function CategoryNav({
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              minHeight: "260px",
+              minHeight: "20px",
               cursor: "grab",
             }}
           >
