@@ -1,0 +1,221 @@
+12:51:28.986 Running build in Washington, D.C., USA (East) – iad1
+12:51:28.987 Build machine configuration: 2 cores, 8 GB
+12:51:29.002 Cloning github.com/Aniket2234/SareeCatalogV10 (Branch: main, Commit: 7f2874a)
+12:51:29.164 Previous build caches not available
+12:51:34.748 Cloning completed: 5.746s
+12:51:34.789 Found .vercelignore
+12:51:34.808 Removed 33 ignored files defined in .vercelignore
+12:51:34.808   /.git/config
+12:51:34.809   /.git/description
+12:51:34.809   /.git/FETCH_HEAD
+12:51:34.809   /.git/HEAD
+12:51:34.809   /.git/hooks/applypatch-msg.sample
+12:51:34.809   /.git/hooks/commit-msg.sample
+12:51:34.809   /.git/hooks/fsmonitor-watchman.sample
+12:51:34.809   /.git/hooks/post-update.sample
+12:51:34.809   /.git/hooks/pre-applypatch.sample
+12:51:34.809   /.git/hooks/pre-commit.sample
+12:51:35.111 Running "vercel build"
+12:51:35.557 Vercel CLI 48.2.0
+12:51:36.304 Running "install" command: `npm install`...
+12:51:41.377 npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+12:51:41.401 npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+12:51:47.607 
+12:51:47.608 added 579 packages, and audited 580 packages in 11s
+12:51:47.609 
+12:51:47.609 70 packages are looking for funding
+12:51:47.610   run `npm fund` for details
+12:51:47.646 
+12:51:47.646 11 vulnerabilities (3 low, 6 moderate, 2 high)
+12:51:47.646 
+12:51:47.646 To address issues that do not require attention, run:
+12:51:47.646   npm audit fix
+12:51:47.646 
+12:51:47.647 To address all issues (including breaking changes), run:
+12:51:47.647   npm audit fix --force
+12:51:47.648 
+12:51:47.648 Run `npm audit` for details.
+12:51:47.931 
+12:51:47.932 > rest-express@1.0.0 build
+12:51:47.933 > npm run build:client
+12:51:47.933 
+12:51:48.046 
+12:51:48.046 > rest-express@1.0.0 build:client
+12:51:48.047 > vite build
+12:51:48.047 
+12:51:48.299 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:51:48.350 transforming...
+12:51:48.588 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:51:48.589   npx update-browserslist-db@latest
+12:51:48.589   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:51:52.817 [32m✓[39m 1731 modules transformed.
+12:51:53.231 rendering chunks...
+12:51:53.240 computing gzip size...
+12:51:53.256 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:51:53.257 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:51:53.258 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:51:53.258 [32m✓ built in 4.93s[39m
+12:51:53.338 Installing dependencies...
+12:51:54.727 
+12:51:54.728 up to date in 1s
+12:51:54.729 
+12:51:54.729 70 packages are looking for funding
+12:51:54.729   run `npm fund` for details
+12:51:54.743 Running "npm run vercel-build"
+12:51:54.853 
+12:51:54.853 > rest-express@1.0.0 vercel-build
+12:51:54.853 > npm run build:client
+12:51:54.854 
+12:51:54.970 
+12:51:54.970 > rest-express@1.0.0 build:client
+12:51:54.970 > vite build
+12:51:54.971 
+12:51:55.226 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:51:55.278 transforming...
+12:51:55.650 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:51:55.650   npx update-browserslist-db@latest
+12:51:55.651   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:00.504 [32m✓[39m 1731 modules transformed.
+12:52:00.784 rendering chunks...
+12:52:00.792 computing gzip size...
+12:52:00.806 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:00.807 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:00.807 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:00.808 [32m✓ built in 5.56s[39m
+12:52:01.074 Using TypeScript 5.6.3 (local user-provided)
+12:52:04.766 Running "npm run vercel-build"
+12:52:04.900 
+12:52:04.901 > rest-express@1.0.0 vercel-build
+12:52:04.902 > npm run build:client
+12:52:04.902 
+12:52:05.028 
+12:52:05.029 > rest-express@1.0.0 build:client
+12:52:05.029 > vite build
+12:52:05.031 
+12:52:05.276 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:05.326 transforming...
+12:52:05.575 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:05.576   npx update-browserslist-db@latest
+12:52:05.577   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:09.672 [32m✓[39m 1731 modules transformed.
+12:52:09.979 rendering chunks...
+12:52:09.990 computing gzip size...
+12:52:10.008 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:10.009 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:10.009 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:10.009 [32m✓ built in 4.71s[39m
+12:52:10.054 Using TypeScript 5.6.3 (local user-provided)
+12:52:10.751 Running "npm run vercel-build"
+12:52:10.863 
+12:52:10.863 > rest-express@1.0.0 vercel-build
+12:52:10.863 > npm run build:client
+12:52:10.864 
+12:52:10.976 
+12:52:10.977 > rest-express@1.0.0 build:client
+12:52:10.977 > vite build
+12:52:10.977 
+12:52:11.215 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:11.263 transforming...
+12:52:11.492 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:11.492   npx update-browserslist-db@latest
+12:52:11.494   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:15.711 [32m✓[39m 1731 modules transformed.
+12:52:16.008 rendering chunks...
+12:52:16.016 computing gzip size...
+12:52:16.030 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:16.031 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:16.031 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:16.031 [32m✓ built in 4.79s[39m
+12:52:16.072 Using TypeScript 5.6.3 (local user-provided)
+12:52:16.815 Running "npm run vercel-build"
+12:52:16.931 
+12:52:16.932 > rest-express@1.0.0 vercel-build
+12:52:16.932 > npm run build:client
+12:52:16.933 
+12:52:17.059 
+12:52:17.059 > rest-express@1.0.0 build:client
+12:52:17.060 > vite build
+12:52:17.060 
+12:52:17.297 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:17.344 transforming...
+12:52:17.586 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:17.587   npx update-browserslist-db@latest
+12:52:17.587   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:21.842 [32m✓[39m 1731 modules transformed.
+12:52:22.143 rendering chunks...
+12:52:22.153 computing gzip size...
+12:52:22.168 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:22.168 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:22.168 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:22.169 [32m✓ built in 4.85s[39m
+12:52:22.208 Using TypeScript 5.6.3 (local user-provided)
+12:52:22.765 Running "npm run vercel-build"
+12:52:22.877 
+12:52:22.878 > rest-express@1.0.0 vercel-build
+12:52:22.878 > npm run build:client
+12:52:22.878 
+12:52:22.995 
+12:52:22.996 > rest-express@1.0.0 build:client
+12:52:22.996 > vite build
+12:52:22.997 
+12:52:23.238 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:23.288 transforming...
+12:52:23.525 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:23.525   npx update-browserslist-db@latest
+12:52:23.526   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:27.760 [32m✓[39m 1731 modules transformed.
+12:52:28.042 rendering chunks...
+12:52:28.052 computing gzip size...
+12:52:28.067 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:28.067 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:28.068 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:28.070 [32m✓ built in 4.81s[39m
+12:52:28.107 Using TypeScript 5.6.3 (local user-provided)
+12:52:28.611 Running "npm run vercel-build"
+12:52:28.731 
+12:52:28.731 > rest-express@1.0.0 vercel-build
+12:52:28.731 > npm run build:client
+12:52:28.731 
+12:52:28.842 
+12:52:28.843 > rest-express@1.0.0 build:client
+12:52:28.843 > vite build
+12:52:28.844 
+12:52:29.093 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:29.141 transforming...
+12:52:29.381 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:29.382   npx update-browserslist-db@latest
+12:52:29.383   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:33.505 [32m✓[39m 1731 modules transformed.
+12:52:33.781 rendering chunks...
+12:52:33.789 computing gzip size...
+12:52:33.803 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:33.803 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:33.803 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:33.804 [32m✓ built in 4.69s[39m
+12:52:33.843 Using TypeScript 5.6.3 (local user-provided)
+12:52:34.344 Running "npm run vercel-build"
+12:52:34.454 
+12:52:34.454 > rest-express@1.0.0 vercel-build
+12:52:34.455 > npm run build:client
+12:52:34.455 
+12:52:34.566 
+12:52:34.566 > rest-express@1.0.0 build:client
+12:52:34.566 > vite build
+12:52:34.566 
+12:52:34.807 [36mvite v5.4.20 [32mbuilding for production...[36m[39m
+12:52:34.856 transforming...
+12:52:35.144 Browserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+12:52:35.144   npx update-browserslist-db@latest
+12:52:35.145   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+12:52:39.245 [32m✓[39m 1731 modules transformed.
+12:52:39.518 rendering chunks...
+12:52:39.526 computing gzip size...
+12:52:39.540 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  1.95 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+12:52:39.540 [2m../dist/public/[22m[2massets/[22m[35mindex-DF6T3gk6.css  [39m[1m[2m 75.55 kB[22m[1m[22m[2m │ gzip:  12.90 kB[22m
+12:52:39.541 [2m../dist/public/[22m[2massets/[22m[36mindex-7w8x_WiE.js   [39m[1m[2m373.27 kB[22m[1m[22m[2m │ gzip: 116.26 kB[22m
+12:52:39.541 [32m✓ built in 4.71s[39m
+12:52:39.579 Using TypeScript 5.6.3 (local user-provided)
+12:52:40.131 Build Completed in /vercel/output [1m]
+12:52:40.407 Deploying outputs...
+12:52:49.253 Deployment completed
+12:52:50.078 Creating build cache...
