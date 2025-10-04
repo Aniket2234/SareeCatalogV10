@@ -4,18 +4,23 @@ This is a full-stack web application for an elegant saree catalog, built with Re
 
 # Recent Changes (Oct 4, 2025)
 
-## Database Seeding for Production (Oct 4, 2025)
-- **Issue**: Collections and products not loading in Vercel deployment despite MONGODB_URI being set
-- **Root Cause**: Production MongoDB database was empty - serverless functions don't auto-seed like the local Express server does
-- **Solution**: Created comprehensive seed script that populates both categories and products
-  - Added `npm run seed` script to package.json
-  - Updated `server/seed-products.ts` to seed both categories (6) and products (14)
-  - Script safely checks for existing data before seeding
-- **How to Seed Production Database**:
-  1. Make sure MONGODB_URI environment variable points to your production MongoDB
-  2. Run `npm run seed` locally (it will use the MONGODB_URI from your environment)
-  3. Or run the seed script as a one-time command in Vercel's Functions console
-- **Status**: ✅ Seed script tested and working, ready to populate production database
+## Vercel Serverless Functions Import Fix (Oct 4, 2025)
+- **Issue**: Collections and products not loading in Vercel deployment (showing "No products found")
+- **Root Cause**: Serverless API functions were using `.js` extensions in import statements
+  - Example: `import { getStorage } from '../_lib/storage.js'`
+  - This works locally with `tsx` runtime but fails in Vercel's TypeScript compilation
+  - Vercel expects TypeScript imports without extensions
+- **Solution**: Removed all `.js` extensions from import statements in `/api` directory
+  - Fixed imports in all API endpoints (categories, products, collections, search)
+  - Fixed imports in `api/_lib/storage.ts` and all route handlers
+  - Changed from `'../storage.js'` to `'../storage'`
+- **Files Updated**:
+  - `api/_lib/storage.ts` - Core storage module imports
+  - `api/categories/index.ts`, `api/categories/[slug].ts`
+  - `api/products/index.ts`, `api/products/[id].ts`, `api/products/category/[category].ts`
+  - `api/collections/[collectionType].ts`
+  - `api/search.ts`
+- **Status**: ✅ All imports fixed, Vercel deployment should now load products correctly
 
 ## Vercel Deployment TypeScript Fix (Oct 4, 2025)
 - **Issue**: Vercel build failing with TypeScript error: `Module '"zod"' has no exported member 'z'`

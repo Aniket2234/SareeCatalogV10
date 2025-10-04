@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getStorage } from '../_lib/storage.js';
-import { productSearchSchema } from '../../shared/schema.js';
+import { getStorage } from '../_lib/storage';
+import { productSearchSchema } from '../../shared/schema';
 
 export default async function handler(
   req: VercelRequest,
