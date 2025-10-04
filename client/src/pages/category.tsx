@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Header from "@/components/header";
 import { ProductCard } from "@/components/product-card";
 import { FilterPanel } from "@/components/filter-panel";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, SlidersHorizontal, ChevronDown, ChevronUp } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { Product } from "@shared/schema";
 
 export default function CategoryPage() {
@@ -19,15 +20,15 @@ export default function CategoryPage() {
   const isCollection = ["new-arrival", "trending", "exclusive"].includes(slug);
   
   const [searchQuery, setSearchQuery] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 3000]);
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSort, setSelectedSort] = useState<SortOption>("featured");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isColorOpen, setIsColorOpen] = useState(false);
   const [isMaterialOpen, setIsMaterialOpen] = useState(false);
-  const [isSizeOpen, setIsSizeOpen] = useState(false);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
   
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: [isCollection ? `/api/collections/${slug}` : `/api/products/category/${slug}`],
@@ -42,6 +43,29 @@ export default function CategoryPage() {
     enabled: !!slug,
   });
 
+  // Extract unique materials and colors from products
+  const { availableMaterials, availableColors, maxPrice } = useMemo(() => {
+    if (!products || products.length === 0) {
+      return { availableMaterials: [], availableColors: [], maxPrice: 3000 };
+    }
+
+    const materials = new Set<string>();
+    const colors = new Set<string>();
+    let max = 0;
+
+    products.forEach(product => {
+      if (product.material) materials.add(product.material);
+      if (product.colors) product.colors.forEach(color => colors.add(color));
+      if (product.price > max) max = product.price;
+    });
+
+    return {
+      availableMaterials: Array.from(materials).sort(),
+      availableColors: Array.from(colors).sort(),
+      maxPrice: Math.ceil(max / 100) * 100, // Round up to nearest 100
+    };
+  }, [products]);
+
   const getCategoryTitle = (slug: string) => {
     switch (slug) {
       case "new-arrival":
@@ -55,20 +79,6 @@ export default function CategoryPage() {
     }
   };
 
-  const getSortLabel = (sort: SortOption) => {
-    const labels = {
-      "featured": "Featured",
-      "best-selling": "Best selling",
-      "alphabetically-az": "Alphabetically, A-Z",
-      "alphabetically-za": "Alphabetically, Z-A",
-      "price-low-high": "Price, low to high",
-      "price-high-low": "Price, high to low",
-      "date-old-new": "Date, old to new",
-      "date-new-old": "Date, new to old",
-    };
-    return labels[sort];
-  };
-
   const filteredAndSortedProducts = () => {
     if (!products) return [];
     
@@ -79,7 +89,13 @@ export default function CategoryPage() {
       
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
       
-      return matchesSearch && matchesPrice;
+      const matchesMaterial = selectedMaterials.length === 0 || 
+        selectedMaterials.includes(product.material);
+      
+      const matchesColor = selectedColors.length === 0 ||
+        product.colors.some(color => selectedColors.includes(color));
+      
+      return matchesSearch && matchesPrice && matchesMaterial && matchesColor;
     });
 
     switch (selectedSort) {
@@ -122,8 +138,30 @@ export default function CategoryPage() {
   const handlePriceInputChange = (index: number, value: string) => {
     const numValue = parseInt(value) || 0;
     const newRange: [number, number] = [...priceRange];
-    newRange[index] = numValue;
+    newRange[index] = Math.min(numValue, maxPrice);
     setPriceRange(newRange);
+  };
+
+  const toggleMaterial = (material: string) => {
+    setSelectedMaterials(prev =>
+      prev.includes(material)
+        ? prev.filter(m => m !== material)
+        : [...prev, material]
+    );
+  };
+
+  const toggleColor = (color: string) => {
+    setSelectedColors(prev =>
+      prev.includes(color)
+        ? prev.filter(c => c !== color)
+        : [...prev, color]
+    );
+  };
+
+  const clearFilters = () => {
+    setPriceRange([0, maxPrice]);
+    setSelectedMaterials([]);
+    setSelectedColors([]);
   };
 
   const displayProducts = filteredAndSortedProducts();
@@ -218,9 +256,20 @@ export default function CategoryPage() {
               {/* Left Sidebar - Filters */}
               <aside className="w-64 flex-shrink-0">
                 <div className="bg-card border border-border rounded-lg p-6 sticky top-24">
-                  <h2 className="text-xl font-bold text-foreground mb-6">Filters</h2>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-bold text-foreground">Filters</h2>
+                    {(selectedMaterials.length > 0 || selectedColors.length > 0 || priceRange[0] > 0 || priceRange[1] < maxPrice) && (
+                      <button
+                        onClick={clearFilters}
+                        className="text-sm text-primary hover:underline"
+                        data-testid="button-clear-filters"
+                      >
+                        Clear All
+                      </button>
+                    )}
+                  </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-4 max-h-[calc(100vh-250px)] overflow-y-auto">
                     {/* Price Filter */}
                     <div className="border-b border-border pb-4">
                       <button
@@ -240,7 +289,7 @@ export default function CategoryPage() {
                           <Slider
                             value={priceRange}
                             onValueChange={(value) => setPriceRange(value as [number, number])}
-                            max={2000}
+                            max={maxPrice}
                             step={50}
                             className="w-full"
                             data-testid="slider-price"
@@ -272,75 +321,92 @@ export default function CategoryPage() {
                       )}
                     </div>
 
-                    {/* Color Filter */}
-                    <div className="border-b border-border pb-4">
-                      <button
-                        onClick={() => setIsColorOpen(!isColorOpen)}
-                        className="flex items-center justify-between w-full text-left"
-                        data-testid="button-filter-color"
-                      >
-                        <span className="font-semibold text-foreground">Color</span>
-                        {isColorOpen ? (
-                          <ChevronUp className="h-5 w-5 text-foreground" />
-                        ) : (
-                          <ChevronDown className="h-5 w-5 text-foreground" />
-                        )}
-                      </button>
-                    </div>
-
                     {/* Material Filter */}
-                    <div className="border-b border-border pb-4">
-                      <button
-                        onClick={() => setIsMaterialOpen(!isMaterialOpen)}
-                        className="flex items-center justify-between w-full text-left"
-                        data-testid="button-filter-material"
-                      >
-                        <span className="font-semibold text-foreground">Material</span>
-                        {isMaterialOpen ? (
-                          <ChevronUp className="h-5 w-5 text-foreground" />
-                        ) : (
-                          <ChevronDown className="h-5 w-5 text-foreground" />
+                    {availableMaterials.length > 0 && (
+                      <div className="border-b border-border pb-4">
+                        <button
+                          onClick={() => setIsMaterialOpen(!isMaterialOpen)}
+                          className="flex items-center justify-between w-full text-left"
+                          data-testid="button-filter-material"
+                        >
+                          <span className="font-semibold text-foreground">Material</span>
+                          {isMaterialOpen ? (
+                            <ChevronUp className="h-5 w-5 text-foreground" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5 text-foreground" />
+                          )}
+                        </button>
+                        {isMaterialOpen && (
+                          <div className="mt-3 space-y-2">
+                            {availableMaterials.map((material) => (
+                              <div key={material} className="flex items-center space-x-2">
+                                <Checkbox
+                                  id={`material-${material}`}
+                                  checked={selectedMaterials.includes(material)}
+                                  onCheckedChange={() => toggleMaterial(material)}
+                                  data-testid={`checkbox-material-${material}`}
+                                />
+                                <label
+                                  htmlFor={`material-${material}`}
+                                  className="text-sm text-foreground cursor-pointer"
+                                >
+                                  {material}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
                         )}
-                      </button>
-                    </div>
+                      </div>
+                    )}
 
-                    {/* Size Filter */}
-                    <div className="border-b border-border pb-4">
-                      <button
-                        onClick={() => setIsSizeOpen(!isSizeOpen)}
-                        className="flex items-center justify-between w-full text-left"
-                        data-testid="button-filter-size"
-                      >
-                        <span className="font-semibold text-foreground">Size</span>
-                        {isSizeOpen ? (
-                          <ChevronUp className="h-5 w-5 text-foreground" />
-                        ) : (
-                          <ChevronDown className="h-5 w-5 text-foreground" />
+                    {/* Color Filter */}
+                    {availableColors.length > 0 && (
+                      <div className="border-b border-border pb-4">
+                        <button
+                          onClick={() => setIsColorOpen(!isColorOpen)}
+                          className="flex items-center justify-between w-full text-left"
+                          data-testid="button-filter-color"
+                        >
+                          <span className="font-semibold text-foreground">Color</span>
+                          {isColorOpen ? (
+                            <ChevronUp className="h-5 w-5 text-foreground" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5 text-foreground" />
+                          )}
+                        </button>
+                        {isColorOpen && (
+                          <div className="mt-3 space-y-2">
+                            {availableColors.map((color) => (
+                              <div key={color} className="flex items-center space-x-2">
+                                <Checkbox
+                                  id={`color-${color}`}
+                                  checked={selectedColors.includes(color)}
+                                  onCheckedChange={() => toggleColor(color)}
+                                  data-testid={`checkbox-color-${color}`}
+                                />
+                                <label
+                                  htmlFor={`color-${color}`}
+                                  className="text-sm text-foreground cursor-pointer"
+                                >
+                                  {color}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
                         )}
-                      </button>
-                    </div>
-
-                    {/* More Filters */}
-                    <div className="border-b border-border pb-4">
-                      <button
-                        onClick={() => setIsMoreOpen(!isMoreOpen)}
-                        className="flex items-center justify-between w-full text-left"
-                        data-testid="button-filter-more"
-                      >
-                        <span className="font-semibold text-foreground">More filters</span>
-                        {isMoreOpen ? (
-                          <ChevronUp className="h-5 w-5 text-foreground" />
-                        ) : (
-                          <ChevronDown className="h-5 w-5 text-foreground" />
-                        )}
-                      </button>
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </aside>
 
               {/* Right Content - Products Grid */}
               <main className="flex-1">
+                <div className="mb-4">
+                  <p className="text-sm text-muted-foreground" data-testid="text-product-count">
+                    Showing {displayProducts.length} of {products?.length || 0} products
+                  </p>
+                </div>
                 {displayProducts && displayProducts.length > 0 ? (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {displayProducts.map((product) => (
@@ -387,6 +453,14 @@ export default function CategoryPage() {
         onOpenChange={setIsFilterOpen}
         priceRange={priceRange}
         onPriceRangeChange={setPriceRange}
+        maxPrice={maxPrice}
+        selectedMaterials={selectedMaterials}
+        onMaterialToggle={toggleMaterial}
+        availableMaterials={availableMaterials}
+        selectedColors={selectedColors}
+        onColorToggle={toggleColor}
+        availableColors={availableColors}
+        onClearFilters={clearFilters}
         onApplyFilters={() => {}}
       />
 
