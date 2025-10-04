@@ -29,16 +29,29 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey.join("/") as string, {
-      credentials: "include",
-    });
+    const url = queryKey.join("/") as string;
+    console.log(`[API Request] Fetching: ${url}`);
+    
+    try {
+      const res = await fetch(url, {
+        credentials: "include",
+      });
 
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
+      console.log(`[API Response] ${url} - Status: ${res.status}`);
+
+      if (unauthorizedBehavior === "returnNull" && res.status === 401) {
+        console.log(`[API Response] ${url} - Unauthorized (401), returning null`);
+        return null;
+      }
+
+      await throwIfResNotOk(res);
+      const data = await res.json();
+      console.log(`[API Response] ${url} - Data:`, data);
+      return data;
+    } catch (error) {
+      console.error(`[API Error] ${url} - Error:`, error);
+      throw error;
     }
-
-    await throwIfResNotOk(res);
-    return await res.json();
   };
 
 export const queryClient = new QueryClient({

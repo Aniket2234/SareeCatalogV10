@@ -39,9 +39,24 @@ export default function CategoryPage() {
       const url = isCollection 
         ? `/api/collections/${slug}?limit=100`
         : `/api/products/category/${slug}`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch products");
-      return response.json();
+      console.log(`[Category] Fetching products from ${url}`);
+      console.log(`[Category] isCollection: ${isCollection}, slug: ${slug}`);
+      try {
+        const response = await fetch(url);
+        console.log(`[Category] Products response - Status: ${response.status}`);
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`[Category] Products fetch failed:`, errorText);
+          throw new Error(`Failed to fetch products: ${response.status} ${errorText}`);
+        }
+        const data = await response.json();
+        console.log(`[Category] Products data received:`, data);
+        console.log(`[Category] Number of products: ${data?.length || 0}`);
+        return data;
+      } catch (error) {
+        console.error(`[Category] Error fetching products:`, error);
+        throw error;
+      }
     },
     enabled: !!slug,
   });

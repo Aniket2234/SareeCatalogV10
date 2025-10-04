@@ -17,9 +17,23 @@ export default function Home() {
   >({
     queryKey: ["/api/categories"],
     queryFn: async () => {
-      const response = await fetch("/api/categories");
-      if (!response.ok) throw new Error("Failed to fetch categories");
-      return response.json();
+      console.log("[Home] Fetching categories from /api/categories");
+      try {
+        const response = await fetch("/api/categories");
+        console.log(`[Home] Categories response - Status: ${response.status}`);
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("[Home] Categories fetch failed:", errorText);
+          throw new Error(`Failed to fetch categories: ${response.status} ${errorText}`);
+        }
+        const data = await response.json();
+        console.log("[Home] Categories data received:", data);
+        console.log(`[Home] Number of categories: ${data?.length || 0}`);
+        return data;
+      } catch (error) {
+        console.error("[Home] Error fetching categories:", error);
+        throw error;
+      }
     },
   });
 
