@@ -87,12 +87,12 @@ export default function CategoryNav({
         className="bg-white"
         data-testid="category-nav-loading"
       >
-        <div className="container mx-auto px-4 py-2">
+        <div className="container mx-auto px-4 py-1 sm:py-2">
         <div className="relative">
           <div className="overflow-hidden">
             <div
               className="flex space-x-8 pb-1 sm:pb-2 pt-0 sm:pt-1"
-              style={{ minHeight: "300px" }}
+              style={{ minHeight: "260px" }}
             >
               {Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton
@@ -117,7 +117,7 @@ export default function CategoryNav({
       className="bg-white"
       data-testid="category-nav"
     >
-      <div className="container mx-auto px-4 py-2">
+      <div className="container mx-auto px-4 py-1 sm:py-2">
         <div className="relative">
           <div
             ref={scrollContainerRef}
@@ -130,7 +130,7 @@ export default function CategoryNav({
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
-              minHeight: "300px",
+              minHeight: "260px",
               cursor: "grab",
             }}
           >
